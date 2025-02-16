@@ -2,6 +2,7 @@ package com.stockt;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.widget.Button;
 import android.widget.Toast;
@@ -54,7 +55,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void actionButton(){
-        //actionButton logic
+        Intent intent = new Intent(this, InventoryActivity.class);
+        startActivity(intent);
     }
 
     private void enableLowStockSMS() {
