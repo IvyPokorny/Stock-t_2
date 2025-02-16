@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="25dp" >
+
+
+    <Spinner
+        android:id="@+id/categoryDropdown"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textSize="20sp"
+        android:text="Category"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search Items"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="match_parent"
+        android:textSize="20sp"
+        android:layout_height="58dp"
+        android:text="Welcome!" />
+
+    <TextView
+        android:id="@+id/totalItems"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:textSize="20sp"
+        android:text="Total Items: 0" />
+    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+    <TextView
+        android:id="@+id/stockFlowSummary"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:textSize="20sp"
+        android:text="Stock Flow Summary" />
+    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+    <TextView
+        android:id="@+id/lowStock"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:textSize="20sp"
+        android:text="Low Stock Items" />
+    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+    <Button
+        android:id="@+id/buttonLowStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_low_stock_notification" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
+
+

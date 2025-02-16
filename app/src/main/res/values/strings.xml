@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Stock\'t</string>
+    <string name="hint_enter_password">Enter your password</string>
+    <string name="hint_enter_username">Enter your username</string>
+    <string name="password">Password</string>
+    <string name="enable_low_stock_notification">Enable Low Stock Notification</string>
+
+</resources>
