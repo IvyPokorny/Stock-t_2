@@ -2,14 +2,16 @@ package com.stockt;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.telephony.SmsManager;
+import android.util.Log;
 
 public class MainActivityy extends AppCompatActivity {
 
@@ -19,34 +21,38 @@ public class MainActivityy extends AppCompatActivity {
     private Button buttonLogin;
     private Button buttonClose;
     private Button buttonSignUp;
+    private UserDatabaseHelper userDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity); // Ensure this layout includes your login screen
+        setContentView(R.layout.main_activity);
 
-        // Enable edge-to-edge support
+        //Enable edge-to-edge support
         //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         //        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         //        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
+        //Adds system bars padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize elements
+        userDatabaseHelper = new UserDatabaseHelper(this);
+
+        //Initialize elements
         editTextTitle = findViewById(R.id.editTextTitle);
-        usernameText = findViewById(R.id.usernameText);
+        usernameText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonClose = findViewById(R.id.buttonClose);
         buttonSignUp = findViewById(R.id.buttonSignUp);
 
-        // Set up button listeners
+        //Set up button listeners
         buttonLogin.setOnClickListener(v -> login());
-        buttonClose.setOnClickListener(v -> finish()); // Close the app
+        buttonClose.setOnClickListener(v -> finish()); //Close the app
         buttonSignUp.setOnClickListener(v -> openSignUpPage());
     }
 
@@ -54,11 +60,14 @@ public class MainActivityy extends AppCompatActivity {
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
 
-        // Handle login logic here (e.g., authentication)
-        if (!username.isEmpty() && !password.isEmpty()) {
-            // Proceed to home screen
+        //Handle login logic here
+        if (userDatabaseHelper.checkUser(username, password)) {
+            //Proceed to home screen
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+        } else {
+            //Handle invalid login, simple Toast for verification
+            Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -12,7 +12,7 @@
 
 
         <TableLayout
-            android:id="@+id/tableItems"
+            android:id="@+id/tableSortNav"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:stretchColumns="1">
@@ -65,7 +65,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="bottom">
 
             <LinearLayout
@@ -75,6 +76,7 @@
                 android:orientation="vertical">
 
                 <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="3dp"
@@ -109,58 +111,62 @@
 
                     </TableRow>
 
-                    <TableRow android:padding="3dp">
 
-                        <TextView
-                            android:id="@+id/itemName1"
-                            android:layout_height="match_parent"
-                            android:layout_column="0"
-                            android:gravity="center"
-                            android:background="@color/nice_gray"
-                            android:text="Roses"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+<!--                    This was placeholder before java code for adding rows was created-->
+<!--                    <TableRow android:padding="3dp">-->
 
-                        <TextView
-                            android:id="@+id/itemCount1"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:background="@color/nice_gray"
-                            android:text="325"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/itemName1"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_column="0"-->
+<!--                            android:gravity="center"-->
+<!--                            android:background="@color/nice_gray"-->
+<!--                            android:text="Roses"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
 
-                        <TextView
-                            android:id="@+id/itemPrice1"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:background="@color/nice_gray"
-                            android:text="$15"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/itemCount1"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:gravity="center"-->
+<!--                            android:background="@color/nice_gray"-->
+<!--                            android:text="325"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
 
-                        <Button
-                            android:id="@+id/button"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@color/dark_gray"
-                            android:text="Delete" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/itemPrice1"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:gravity="center"-->
+<!--                            android:background="@color/nice_gray"-->
+<!--                            android:text="$15"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
 
-                    </TableRow>
+<!--                        <Button-->
+<!--                            android:id="@+id/button"-->
+<!--                            style="@style/Widget.AppCompat.Button.Colored"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:background="@color/dark_gray"-->
+<!--                            android:text="Delete" />-->
+
+<!--                    </TableRow>-->
 
 
                 </TableLayout>
 
-                <Button
-                    android:id="@+id/button2"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Add Item" />
-
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="45dp"
+            android:text="Add Item" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -192,6 +198,5 @@
             android:text="Settings" />
 
     </LinearLayout>
-
 
 </FrameLayout>

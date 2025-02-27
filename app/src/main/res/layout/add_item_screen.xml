@@ -98,7 +98,7 @@
                             android:layout_height="50dp"
                             android:ems="10"
                             android:inputType="text"
-                            android:text="enter name here" />
+                            android:hint="enter name here" />
 
                     </TableRow>
 
@@ -121,7 +121,7 @@
                             android:layout_height="50dp"
                             android:ems="10"
                             android:inputType="number"
-                            android:text="enter quantity here" />
+                            android:hint="enter quantity here" />
 
                     </TableRow>
 
@@ -144,7 +144,7 @@
                             android:layout_height="50dp"
                             android:ems="10"
                             android:inputType="text"
-                            android:text="enter value here" />
+                            android:hint="EX: 2.50" />
 
                     </TableRow>
 
@@ -167,7 +167,7 @@
                             android:layout_height="50dp"
                             android:ems="10"
                             android:inputType="text"
-                            android:text="enter category here" />
+                            android:hint="enter category here" />
 
                     </TableRow>
 

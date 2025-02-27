@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="217dp"
         android:textSize="50sp"
-        android:inputType="text"
         android:text="Stock\'t" />
 
     <EditText
@@ -50,12 +49,13 @@
         android:textSize="20sp"
         android:hint="Phone Number" />
 
-    <EditText
-        android:id="@+id/addressText"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textSize="20sp"
-        android:hint="Address" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/addressText"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:hint="Address" />-->
 
     <FrameLayout
         android:layout_width="match_parent"

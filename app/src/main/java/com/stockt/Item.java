@@ -1,14 +1,35 @@
 package com.stockt;
 
 public class Item {
+
+    private int id;
     private String name;
-    private int count;
-    private String value;
+    private int quantity;
+    private double price;
     private String category;
 
-    public Item(String name, int count){
+    public Item(int id, String name, int quantity, double price, String category){
+        this.id = id;
         this.name = name;
-        this.count = count;
+        this.quantity = quantity;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Item(int id, String name, int quantity, double price){
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.category = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -19,12 +40,12 @@ public class Item {
         this.name = name;
     }
 
-    public int getCount() {
-        return count;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setQuantity(int count) {
+        this.quantity = count;
     }
 
     public String getCategory() {
@@ -35,11 +56,11 @@ public class Item {
         this.category = category;
     }
 
-    public String getValue() {
-        return value;
+    public double getPrice() {
+        return price;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setPrice(double value) {
+        this.price = value;
     }
 }
