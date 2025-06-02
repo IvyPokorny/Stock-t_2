@@ -149,6 +149,7 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
     private void openSettingsActivity() {
-        //Logic to open the settings activity
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }

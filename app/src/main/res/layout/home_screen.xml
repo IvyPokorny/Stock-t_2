@@ -1,77 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="25dp" >
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
 
-    <Spinner
-        android:id="@+id/categoryDropdown"
+        <Spinner
+            android:id="@+id/categoryDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="20sp"
+            android:text="Category"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search Items"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/welcomeMessage"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_height="58dp"
+            android:text="@string/welcome" />
+
+        <TextView
+            android:id="@+id/totalItems"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Total Items: 0" />
+        <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+        <TextView
+            android:id="@+id/stockFlowSummary"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Stock Flow Summary" />
+        <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+        <TextView
+            android:id="@+id/lowStock"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Low Stock Items" />
+        <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
+
+        <Button
+            android:id="@+id/buttonLowStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_low_stock_notification" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="40sp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                android:id="@+id/dataMetric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:text="@string/click_for_data_metrics" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:textSize="20sp"
-        android:text="Category"
-        tools:ignore="HardcodedText" />
+        android:layout_gravity="bottom"
+        android:background="#6B00BCD4"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/searchBar"
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Items" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Settings" />
+
+    </LinearLayout>
+
+</FrameLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search Items"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/welcomeMessage"
-        android:layout_width="match_parent"
-        android:textSize="20sp"
-        android:layout_height="58dp"
-        android:text="Welcome!" />
-
-    <TextView
-        android:id="@+id/totalItems"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:textSize="20sp"
-        android:text="Total Items: 0" />
-    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
-
-    <TextView
-        android:id="@+id/stockFlowSummary"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:textSize="20sp"
-        android:text="Stock Flow Summary" />
-    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
-
-    <TextView
-        android:id="@+id/lowStock"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:textSize="20sp"
-        android:text="Low Stock Items" />
-    <!-- THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST-->
-
-    <Button
-        android:id="@+id/buttonLowStock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enable_low_stock_notification" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="25dp" >
 
 
+        <Spinner
+            android:id="@+id/categoryDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="20sp"
+            android:text="Category"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search Items"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/welcomeMessage"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_height="58dp"
+            android:text="Welcome!" />
+
+        <TextView
+            android:id="@+id/totalItems"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Total Items: 0" />
+        &lt;!&ndash; THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST&ndash;&gt;
+
+        <TextView
+            android:id="@+id/stockFlowSummary"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Stock Flow Summary" />
+        &lt;!&ndash; THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST&ndash;&gt;
+
+        <TextView
+            android:id="@+id/lowStock"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:textSize="20sp"
+            android:text="Low Stock Items" />
+        &lt;!&ndash; THIS TEXT IS TEMP, TO BE REPLACED BY LOW STOCK ITEM LIST&ndash;&gt;
+
+        <Button
+            android:id="@+id/buttonLowStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_low_stock_notification" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:src="@android:drawable/ic_input_add" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>-->

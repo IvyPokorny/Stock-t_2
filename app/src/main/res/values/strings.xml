@@ -5,4 +5,6 @@
     <string name="hint_enter_username">Enter your email</string>
     <string name="password">Password</string>
     <string name="enable_low_stock_notification">Enable Low Stock Notification</string>
+    <string name="click_for_data_metrics">Click for Data Metrics</string>
+    <string name="welcome">Welcome!</string>
 </resources>

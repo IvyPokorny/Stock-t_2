@@ -22,6 +22,10 @@ import android.util.Log;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Spinner categoryDropdown;
@@ -32,9 +36,12 @@ public class HomeActivity extends AppCompatActivity {
     private TextView lowStock;
     private Button buttonLowStock;
     private FloatingActionButton floatingActionButton;
-    private BottomNavigationView bottomNavigationView;
+    private TextView dataMetric;
+    private Button buttonItems, buttonHome, buttonSettings;
+
     private static final int SMS_PERMISSION_REQUEST_CODE = 1;
     private static boolean hasPermission = false;
+    private ItemDatabaseHelper itemDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,14 @@ public class HomeActivity extends AppCompatActivity {
         lowStock = findViewById(R.id.lowStock);
         buttonLowStock = findViewById(R.id.buttonLowStock);
         floatingActionButton = findViewById(R.id.floatingActionButton);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        dataMetric = findViewById(R.id.dataMetric);
+
+        // Initialize bottom buttons
+        buttonItems = findViewById(R.id.button5);
+        buttonHome = findViewById(R.id.button4);
+        buttonSettings = findViewById(R.id.button3);
+
+        itemDatabaseHelper = new ItemDatabaseHelper(this);
 
         //Check permission status from SharedPreferences and saves it for use
         SharedPreferences sharedPreferences = getSharedPreferences("StockPrefs", MODE_PRIVATE);
@@ -60,10 +74,20 @@ public class HomeActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(v -> actionButton());
         buttonLowStock.setOnClickListener(v -> enableLowStockSMS());
 
+        // Set up bottom button listeners
+        buttonItems.setOnClickListener(v -> openItemsActivity());
+        buttonHome.setOnClickListener(v -> openHomeActivity());
+        buttonSettings.setOnClickListener(v -> openSettingsActivity());
+
+        // Uncomment to load example inventory
+        loadExampleInventory();
+
+        // Load stock data
+        loadStockData();
     }
 
     private void actionButton(){
-        Intent intent = new Intent(this, InventoryActivity.class);
+        Intent intent = new Intent(this, ItemGraphActivity.class);
         startActivity(intent);
     }
 
@@ -112,4 +136,62 @@ public class HomeActivity extends AppCompatActivity {
         //Example notification for verification
         Toast.makeText(this, "NO SMS permission given", Toast.LENGTH_SHORT).show();
     }
+
+    private void loadStockData() {
+        List<Item> items = itemDatabaseHelper.getAllItems();
+        List<String> lowStockItems = new ArrayList<>();
+        int totalInventoryCount = 0;
+        int lowStockCount = 0;
+        String lastAdjustedItem = "";
+        int adjustmentAmount = 0;
+
+        for (Item item : items) {
+            totalInventoryCount += item.getQuantity();
+            if (item.getQuantity() <= 50) {
+                lowStockCount++;
+                lowStockItems.add(item.getName());
+            }
+            // Capture the last adjusted item and its quantity (replace logic as needed)
+            // This assumes you have a way to track the last adjusted item.
+            lastAdjustedItem = item.getName(); // Update logic to track actual last adjusted item
+            adjustmentAmount = item.getQuantity(); // Update logic to track adjustment
+        }
+
+        String totalItemsText = "Total Items: " + items.size() + " (Total Quantity: " + totalInventoryCount + ")";
+        String lowStockItemsText = "Low Stock Items: " + lowStockCount  + ", " + String.join(", ", lowStockItems);
+        Log.i("Home", "loadStockData: " + String.join(", ", lowStockItems));
+        String stockFlowSumText = "Last Adjusted: " + lastAdjustedItem + " (+/- " + adjustmentAmount + ")";
+        totalItems.setText(totalItemsText);
+        lowStock.setText(lowStockItemsText);
+        stockFlowSummary.setText(stockFlowSumText);
+    }
+
+
+    private void openItemsActivity() {
+        Intent intent = new Intent(this, InventoryActivity.class);
+        startActivity(intent);
+    }
+
+    private void openHomeActivity() {
+        recreate();
+    }
+
+    private void openSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void loadExampleInventory() {
+        itemDatabaseHelper.addItem("Roses", 40, 1.50, "Flowers");
+        itemDatabaseHelper.addItem("Tulips", 30, 1.20, "Flowers");
+        itemDatabaseHelper.addItem("Lilies", 60, 2.00, "Flowers");
+        itemDatabaseHelper.addItem("Daisies", 25, 0.80, "Flowers");
+        itemDatabaseHelper.addItem("Sunflowers", 10, 1.00, "Flowers");
+        itemDatabaseHelper.addItem("Apples", 50, 0.50, "Fruits");
+        itemDatabaseHelper.addItem("Bananas", 20, 0.30, "Fruits");
+        itemDatabaseHelper.addItem("Carrots", 15, 0.60, "Vegetables");
+        itemDatabaseHelper.addItem("Potatoes", 80, 0.40, "Vegetables");
+        Toast.makeText(this, "Example inventory loaded", Toast.LENGTH_SHORT).show();
+    }
+
 }

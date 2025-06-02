@@ -37,7 +37,14 @@ android {
     }
 }
 
+repositories {
+//    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
+
+    //Added for graph/chart support
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.lifecycle.runtime.ktx

@@ -60,7 +60,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         //Variable for all columns required
-        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_QUANTITY, COLUMN_VALUE};
+        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_QUANTITY, COLUMN_VALUE, COLUMN_CATEGORY};
 
         //Get query results
         Cursor cursor = db.query(TABLE_ITEMS, columns, null, null, null, null, null);
@@ -74,14 +74,16 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper{
                     int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
                     int quantityIndex = cursor.getColumnIndex(COLUMN_QUANTITY);
                     int valueIndex = cursor.getColumnIndex(COLUMN_VALUE);
+                    int categoryIndex = cursor.getColumnIndex(COLUMN_CATEGORY);
 
                     //Check if indices are valid before accessing
-                    if (idIndex != -1 && nameIndex != -1 && quantityIndex != -1 && valueIndex != -1) {
+                    if (idIndex != -1 && nameIndex != -1 && quantityIndex != -1 && valueIndex != -1 && categoryIndex != -1) {
                         int id = cursor.getInt(idIndex);
                         String name = cursor.getString(nameIndex);
                         int quantity = cursor.getInt(quantityIndex);
                         double price = cursor.getDouble(valueIndex);
-                        Item item = new Item(id, name, quantity, price);
+                        String category = cursor.getString(categoryIndex);
+                        Item item = new Item(id, name, quantity, price, category);
                         itemList.add(item);
                     }
                 } while (cursor.moveToNext());

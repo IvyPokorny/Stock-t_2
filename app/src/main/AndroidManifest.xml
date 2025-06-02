@@ -36,6 +36,10 @@
 
         <activity android:name=".SignUpActivity"/>
 
+        <activity android:name=".SettingsActivity"/>
+
+        <activity android:name=".ItemGraphActivity" />
+
         <!-- oops, old kotlin file here
         <activity
             android:name=".MainActivity"
