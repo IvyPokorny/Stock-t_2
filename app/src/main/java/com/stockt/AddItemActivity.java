@@ -69,7 +69,7 @@ private ItemDatabaseHelper itemDatabaseHelper;
             double itemValue = Double.parseDouble(itemValueStr);
 
             //Save to database
-            itemDatabaseHelper.addItem(itemName, itemQuantity, itemValue, itemCategory);
+            itemDatabaseHelper.addItem(itemName, itemQuantity, itemValue, itemCategory, true);
             //Notify
             Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show();
             //Clear the input fields

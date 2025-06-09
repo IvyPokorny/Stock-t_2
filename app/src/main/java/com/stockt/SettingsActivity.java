@@ -55,8 +55,11 @@ public class SettingsActivity extends AppCompatActivity {
         itemDatabaseHelper.close(); // Close the database if it's open
         itemDatabaseHelper = new ItemDatabaseHelper(this); // Re-initialize to clear data
         itemDatabaseHelper.onUpgrade(itemDatabaseHelper.getWritableDatabase(), 1, 2);
-        // You can also recreate the database by calling a method to clear items if necessary
-        // Show a confirmation message
+
+        // Reset the history
+        HistoryManager.getInstance().resetHistory();
+
+        //Show a confirmation message
         Toast.makeText(this, "Database has been reset.", Toast.LENGTH_SHORT).show();
     }
 

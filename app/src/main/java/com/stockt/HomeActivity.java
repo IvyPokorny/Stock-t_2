@@ -182,15 +182,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadExampleInventory() {
-        itemDatabaseHelper.addItem("Roses", 40, 1.50, "Flowers");
-        itemDatabaseHelper.addItem("Tulips", 30, 1.20, "Flowers");
-        itemDatabaseHelper.addItem("Lilies", 60, 2.00, "Flowers");
-        itemDatabaseHelper.addItem("Daisies", 25, 0.80, "Flowers");
-        itemDatabaseHelper.addItem("Sunflowers", 10, 1.00, "Flowers");
-        itemDatabaseHelper.addItem("Apples", 50, 0.50, "Fruits");
-        itemDatabaseHelper.addItem("Bananas", 20, 0.30, "Fruits");
-        itemDatabaseHelper.addItem("Carrots", 15, 0.60, "Vegetables");
-        itemDatabaseHelper.addItem("Potatoes", 80, 0.40, "Vegetables");
+        itemDatabaseHelper.addItem("Roses", 40, 1.50, "Flowers", true);
+        itemDatabaseHelper.addItem("Tulips", 30, 1.20, "Flowers", true);
+        itemDatabaseHelper.addItem("Lilies", 60, 2.00, "Flowers", true);
+        itemDatabaseHelper.addItem("Daisies", 25, 0.80, "Flowers", true);
+        itemDatabaseHelper.addItem("Sunflowers", 10, 1.00, "Flowers", true);
+        itemDatabaseHelper.addItem("Apples", 50, 0.50, "Fruits", true);
+        itemDatabaseHelper.addItem("Bananas", 20, 0.30, "Fruits", true);
+        itemDatabaseHelper.addItem("Carrots", 15, 0.60, "Vegetables", true);
+        itemDatabaseHelper.addItem("Potatoes", 80, 0.40, "Vegetables", true);
         Toast.makeText(this, "Example inventory loaded", Toast.LENGTH_SHORT).show();
     }
 

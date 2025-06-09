@@ -40,6 +40,8 @@
 
         <activity android:name=".ItemGraphActivity" />
 
+        <activity android:name=".HistoryActivity" />
+
         <!-- oops, old kotlin file here
         <activity
             android:name=".MainActivity"

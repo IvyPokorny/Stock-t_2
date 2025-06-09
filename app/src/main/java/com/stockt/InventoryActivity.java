@@ -21,7 +21,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     //Declare UI elements
     private Spinner spinnerCategory, spinnerValue;
-    private Button buttonSearch, buttonAddItem, buttonItems, buttonHome, buttonSettings;
+    private Button buttonSearch, buttonAddItem, buttonHistory, buttonItems, buttonHome, buttonSettings;
     private TableLayout tableLayout, tableSortNav;
 
     private ItemDatabaseHelper itemDatabaseHelper;
@@ -40,6 +40,7 @@ public class InventoryActivity extends AppCompatActivity {
         spinnerValue = findViewById(R.id.spinner2);
         buttonSearch = findViewById(R.id.button6);
         buttonAddItem = findViewById(R.id.button2);
+        buttonHistory = findViewById(R.id.buttonHistory);
         buttonItems = findViewById(R.id.button5);
         buttonHome = findViewById(R.id.button4);
         buttonSettings = findViewById(R.id.button3);
@@ -56,6 +57,7 @@ public class InventoryActivity extends AppCompatActivity {
         //Set onClickListeners
         buttonSearch.setOnClickListener(v -> searchItems());
         buttonAddItem.setOnClickListener(v -> addItem());
+        buttonHistory.setOnClickListener(v -> openHistoryActivity());
         buttonItems.setOnClickListener(v -> openItemsActivity());
         buttonHome.setOnClickListener(v -> openHomeActivity());
         buttonSettings.setOnClickListener(v -> openSettingsActivity());
@@ -96,7 +98,7 @@ public class InventoryActivity extends AppCompatActivity {
                     //Update quantity in database if focus is lost
                     int newQuantity = Integer.parseInt(countEditText.getText().toString());
                     item.setQuantity(newQuantity); //Add item to java List
-                    itemDatabaseHelper.updateItemQuantity(item); //Add item to SQLite database
+                    itemDatabaseHelper.updateItemQuantity(item, true); //Add item to SQLite database
                 }
             });
 
@@ -125,7 +127,7 @@ public class InventoryActivity extends AppCompatActivity {
     private void deleteItem(Item item) {
         //Logic to delete the item from the database and refresh the table
         Log.d("InventoryActivity", "Deleting item with ID: " + item.getId());
-        itemDatabaseHelper.deleteItem(item); //Delete from database
+        itemDatabaseHelper.deleteItem(item, true); //Delete from database
         populateItemTable(); //Refresh the table
     }
 
@@ -135,6 +137,11 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void addItem() {
         Intent intent = new Intent(this, AddItemActivity.class);
+        startActivity(intent);
+    }
+
+    private void openHistoryActivity() {
+        Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
     }
 
