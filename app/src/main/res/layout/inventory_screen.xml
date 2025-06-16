@@ -101,7 +101,7 @@
                             android:id="@+id/header_price"
                             android:background="@color/nice_gray"
                             android:textColor="@color/black"
-                            android:text=" Item Price" />
+                            android:text=" Submit" />
 
                         <TextView
                             android:id="@+id/header_delete"

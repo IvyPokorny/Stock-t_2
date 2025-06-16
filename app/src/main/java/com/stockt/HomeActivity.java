@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton);
         dataMetric = findViewById(R.id.dataMetric);
 
-        // Initialize bottom buttons
+        //Initialize bottom buttons
         buttonItems = findViewById(R.id.button5);
         buttonHome = findViewById(R.id.button4);
         buttonSettings = findViewById(R.id.button3);
@@ -74,15 +74,15 @@ public class HomeActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(v -> actionButton());
         buttonLowStock.setOnClickListener(v -> enableLowStockSMS());
 
-        // Set up bottom button listeners
+        //Set up bottom button listeners
         buttonItems.setOnClickListener(v -> openItemsActivity());
         buttonHome.setOnClickListener(v -> openHomeActivity());
         buttonSettings.setOnClickListener(v -> openSettingsActivity());
 
-        // Uncomment to load example inventory
+        //Uncomment to load example inventory
         loadExampleInventory();
 
-        // Load stock data
+        //Load stock data
         loadStockData();
     }
 
@@ -145,14 +145,13 @@ public class HomeActivity extends AppCompatActivity {
         String lastAdjustedItem = "";
         int adjustmentAmount = 0;
 
-        for (Item item : items) {
+        for (Item item : items) { //TODO:Change Logic
             totalInventoryCount += item.getQuantity();
             if (item.getQuantity() <= 50) {
                 lowStockCount++;
                 lowStockItems.add(item.getName());
             }
-            // Capture the last adjusted item and its quantity (replace logic as needed)
-            // This assumes you have a way to track the last adjusted item.
+
             lastAdjustedItem = item.getName(); // Update logic to track actual last adjusted item
             adjustmentAmount = item.getQuantity(); // Update logic to track adjustment
         }

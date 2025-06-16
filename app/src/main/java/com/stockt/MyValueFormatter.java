@@ -15,7 +15,7 @@ public class MyValueFormatter extends ValueFormatter {
     @Override
     public String getBarLabel(BarEntry barEntry) {
         int index = (int) barEntry.getX();
-        // Ensure index is within bounds
+        //Ensure index is within bounds
         return index < labels.size() ? labels.get(index) : "";
     }
 }

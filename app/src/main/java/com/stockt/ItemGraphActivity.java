@@ -29,13 +29,13 @@ public class ItemGraphActivity extends AppCompatActivity {
     private boolean isXItems = true;
     private boolean isCountMode = true;
 
-    // Define a map for category colors
+    //Define a map for category colors
     private final Map<String, Integer> categoryColors = new HashMap<String, Integer>() {{
-        put("Flowers", Color.parseColor("#FF4081")); // Pink
-        put("Fruits", Color.parseColor("#FFC107")); // Amber
-        put("Vegetables", Color.parseColor("#4CAF50")); // Green
-        put("Dairy", Color.parseColor("#2196F3")); // Blue
-        put("Meat", Color.parseColor("#FF5722")); // Deep Orange
+        put("Flowers", Color.parseColor("#FF4081")); //Pink
+        put("Fruits", Color.parseColor("#FFC107")); //Amber
+        put("Vegetables", Color.parseColor("#4CAF50")); //Green
+        put("Dairy", Color.parseColor("#2196F3")); //Blue
+        put("Meat", Color.parseColor("#FF5722")); //Deep Orange
     }};
 
     @Override
@@ -46,16 +46,16 @@ public class ItemGraphActivity extends AppCompatActivity {
         barChart = findViewById(R.id.barChart);
         itemDatabaseHelper = new ItemDatabaseHelper(this);
 
-        // Chart option buttons
+        //Chart option buttons
         buttonXAxis = findViewById(R.id.chartOption1);
         buttonYAxis = findViewById(R.id.chartOption2);
 
-        // Initialize bottom buttons
+        //Initialize bottom buttons
         buttonItems = findViewById(R.id.button5);
         buttonHome = findViewById(R.id.button4);
         buttonSettings = findViewById(R.id.button3);
 
-        // Set up button listeners
+        //Set up button listeners
         buttonItems.setOnClickListener(v -> openItemsActivity());
         buttonHome.setOnClickListener(v -> openHomeActivity());
         buttonSettings.setOnClickListener(v -> openSettingsActivity());
@@ -63,7 +63,7 @@ public class ItemGraphActivity extends AppCompatActivity {
         buttonYAxis.setOnClickListener(v -> changeYAxis());
 
 
-        // Load inventory data and create the graph
+        //Load inventory data and create the graph
         loadInventoryData();
     }
 
@@ -84,8 +84,8 @@ public class ItemGraphActivity extends AppCompatActivity {
         } else {
             buttonYAxis.setText("Display Value");
         }
-        isCountMode = !isCountMode; // Toggle between count and value
-        // Reload data based on the current mode
+        isCountMode = !isCountMode; //Toggle between count and value
+        //Reload data based on the current mode
         if (isXItems) {
             loadInventoryData();
         } else {
@@ -98,17 +98,17 @@ public class ItemGraphActivity extends AppCompatActivity {
         List<Item> items = itemDatabaseHelper.getAllItems();
         List<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
-        double totalValue = 0; // Initialize total value
+        double totalValue = 0; //Initialize total value
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (isCountMode) {
-                entries.add(new BarEntry(i, item.getQuantity())); // Use count
+                entries.add(new BarEntry(i, item.getQuantity())); //Use count
             } else {
-                entries.add(new BarEntry(i, (float) (item.getQuantity() * item.getPrice()))); // Use count or value
+                entries.add(new BarEntry(i, (float) (item.getQuantity() * item.getPrice()))); //Use count or value
             }
             labels.add(item.getName());
-            totalValue += item.getQuantity() * item.getPrice(); // Calculate total value
+            totalValue += item.getQuantity() * item.getPrice(); //Calculate total value
             Log.i("ItemGraphActivity", "loadInventoryData: item.category = " + item.getCategory());
         }
 
@@ -122,7 +122,7 @@ public class ItemGraphActivity extends AppCompatActivity {
         for (Item item : items) {
             String category = item.getCategory();
             Log.i("ItemGraphActivity", "loadInventoryDataByCategory: item.category = " + category);
-            if (category != null) { // Check if category is not null
+            if (category != null) { //Check if category is not null
                 if (isCountMode) {
                     categoryMap.put(category, categoryMap.getOrDefault(category, (float) 0) + item.getQuantity());
                 } else {
@@ -147,39 +147,39 @@ public class ItemGraphActivity extends AppCompatActivity {
     private void createBarChart(List<BarEntry> entries, ArrayList<String> labels, List<Item> items) {
         BarDataSet dataSet = new BarDataSet(entries, "Item Count");
         dataSet.setColors();
-        dataSet.setValueTextSize(12f); // Set the text size for labels
+        dataSet.setValueTextSize(12f); //Set the text size for labels
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setDrawValues(true); // Enable drawing values on top of bars
+        dataSet.setDrawValues(true); //Enable drawing values on top of bars
 
-        // Set colors based on category
+        //Set colors based on category
         for (int i = 0; i < entries.size(); i++) {
             Integer color;
             if (items != null) {
                 String category = items.get(i).getCategory();
                 color = categoryColors.get(category);
             } else {
-                // Use the label for category
+                //Use the label for category
                 String label = labels.get(i);
                 color = categoryColors.get(label);
             }
-            dataSet.addColor(color != null ? color : Color.GRAY); // Default to gray if category not found
+            dataSet.addColor(color != null ? color : Color.GRAY); //Default to gray if category not found
         }
 
-        dataSet.setValueFormatter(new MyValueFormatter(labels)); // Set custom value formatter
+        dataSet.setValueFormatter(new MyValueFormatter(labels)); //Set custom value formatter
 
         BarData barData = new BarData(dataSet);
         barChart.setData(barData);
 
-        // Y-axis label
-        barChart.getAxisLeft().setDrawLabels(true); // Enable Y-axis labels
-        barChart.getAxisRight().setEnabled(false); // Disable right Y-axis
+        //Y-axis label
+        barChart.getAxisLeft().setDrawLabels(true); //Enable Y-axis labels
+        barChart.getAxisRight().setEnabled(false); //Disable right Y-axis
 
-        // Set chart description
+        //Set chart description
         barChart.getDescription().setEnabled(true);
         barChart.getDescription().setText(isCountMode ? "Total Count" : "Total Value");
         barChart.getDescription().setTextSize(12f);
 
-        barChart.invalidate(); // Refresh the chart
+        barChart.invalidate(); //Refresh the chart
     }
 
     private void openItemsActivity() {

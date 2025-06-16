@@ -10,7 +10,7 @@ public class Action {
     }
 
     private ActionType actionType;
-    private List<Object> actionValues; // Can store item details like name, quantity, etc.
+    private List<Object> actionValues; //an store item details like name, quantity, etc.
 
     public Action(ActionType actionType, List<Object> actionValues) {
         this.actionType = actionType;

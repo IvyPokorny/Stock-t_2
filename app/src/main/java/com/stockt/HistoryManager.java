@@ -22,14 +22,15 @@ public class HistoryManager {
     }
 
     public void logAction(Action action) {
+
         undoStack.push(action);
-        redoStack.clear(); // Clear redo stack on new action
+        redoStack.clear(); //Clear redo stack on new action
     }
 
     public Action undo() {
         if (!undoStack.isEmpty()) {
             Action action = undoStack.pop();
-            redoStack.push(action); // Save for redo
+            redoStack.push(action); //Save for redo
             return action;
         }
         return null;
@@ -38,7 +39,7 @@ public class HistoryManager {
     public Action redo() {
         if (!redoStack.isEmpty()) {
             Action action = redoStack.pop();
-            undoStack.push(action); // Restore for undo
+            undoStack.push(action); //Restore for undo
             return action;
         }
         return null;
@@ -52,9 +53,9 @@ public class HistoryManager {
         return new ArrayList<>(redoStack);
     }
 
-    //Resets the entire hostory
+    //Resets the entire history
     public void resetHistory() {
-        undoStack.clear(); // Clear the undo stack
-        redoStack.clear(); // Clear the redo stack
+        undoStack.clear(); //Clear the undo stack
+        redoStack.clear(); //Clear the redo stack
     }
 }

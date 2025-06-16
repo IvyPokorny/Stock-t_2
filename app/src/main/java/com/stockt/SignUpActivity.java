@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (password.equals(checkPass)) { //Checks passwords match
                 userDatabaseHelper.addUser(fullName, email, password, phoneNumber);
                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                finish(); // Close sign-up activity after registration
+                finish(); //Close sign-up activity after registration
             } else {
                 //Toast for notifying user of fault
                 Toast.makeText(this, "Please make sure the passwords match", Toast.LENGTH_SHORT).show();

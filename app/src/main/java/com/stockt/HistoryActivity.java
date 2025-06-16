@@ -36,7 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
         buttonHome = findViewById(R.id.button4);
         buttonSettings = findViewById(R.id.button3);
 
-        historyManager = HistoryManager.getInstance(); // Get instance once
+        historyManager = HistoryManager.getInstance(); //Get instance once
 
         //Example: Adding initial actions to the undo stack
 //        List<Object> addItemValues = new ArrayList<>();
@@ -98,9 +98,9 @@ public class HistoryActivity extends AppCompatActivity {
     private void handleAction(Action action, boolean isRedo) {
         switch (action.getActionType()) {
             case ADD_ITEM:
-                // Logic to add item or reverse add (delete)
+                //Logic to add item or reverse add (delete)
                 if (isRedo) {
-                    // Add item back to database
+                    //Add item back to database
                     List<Object> values = action.getActionValues();
                     int id = (int) values.get(0);
                     String name = (String) values.get(1);
@@ -109,14 +109,14 @@ public class HistoryActivity extends AppCompatActivity {
                     String category = (String) values.get(4);
                     itemDatabaseHelper.addItem(id, name, quantity, value, category, false);
                 } else {
-                    // Logic to delete the item from the database
+                    //Logic to delete the item from the database
                     List<Object> values = action.getActionValues();
                     int id = (int) values.get(0);
                     String name = (String) values.get(1);
                     int quantity = (int) values.get(2);
                     double value = (double) values.get(3);
                     String category = (String) values.get(4);
-                    Item itemToDelete = new Item(id, name, quantity, value, category); // Use a placeholder ID
+                    Item itemToDelete = new Item(id, name, quantity, value, category);
                     itemDatabaseHelper.deleteItem(itemToDelete, false);
                 }
                 break;
@@ -146,14 +146,14 @@ public class HistoryActivity extends AppCompatActivity {
                 }
                 break;
             case DELETE_ITEM:
-                // Logic to delete item or reverse delete (add back)
+                //Logic to delete item or reverse delete (add back)
                 List<Object> deleteValues = action.getActionValues();
                 int deletedId = (int) deleteValues.get(0);
                 String deletedItemName = (String) deleteValues.get(1);
                 int deletedItemQuantity = (int) deleteValues.get(2);
                 double deletedItemValue = (double) deleteValues.get(3);
                 String deletedItemCategory = (String) deleteValues.get(4);
-                Item itemToRestore = new Item(deletedId, deletedItemName, deletedItemQuantity, deletedItemValue, deletedItemCategory); // Use a placeholder ID
+                Item itemToRestore = new Item(deletedId, deletedItemName, deletedItemQuantity, deletedItemValue, deletedItemCategory); //Use a placeholder ID
 
                 if (isRedo) {
                     //Logic to delete the item from the database

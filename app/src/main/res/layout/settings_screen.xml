@@ -19,6 +19,12 @@
         android:layout_height="wrap_content"
         android:text="Reset Database" />
 
+    <Button
+        android:id="@+id/fillDatabaseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Fill Database" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"

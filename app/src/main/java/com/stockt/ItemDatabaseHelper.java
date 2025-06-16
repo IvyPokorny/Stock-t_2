@@ -71,13 +71,13 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper{
     public void addItem(int id, String name, int quantity, double value, String category, boolean isLogged) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, id); // Set the provided ID
+        values.put(COLUMN_ID, id); //Set the provided ID
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_QUANTITY, quantity);
         values.put(COLUMN_VALUE, value);
         values.put(COLUMN_CATEGORY, category);
         Log.i("ItemDatabaseHelper", "addItem: NEW & Log=" + String.valueOf(isLogged) + ", id=" + String.valueOf(id) + ", name=" + name + ", quantity=" + String.valueOf(quantity));
-        db.insert(TABLE_ITEMS, null, values); // Insert the item
+        db.insert(TABLE_ITEMS, null, values); //Insert the item
         db.close();
 
         if (isLogged) {
@@ -90,6 +90,50 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper{
             actionValues.add(category);
             HistoryManager.getInstance().logAction(new Action(Action.ActionType.ADD_ITEM, actionValues));
         }
+    }
+
+    public Item getItem(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Item item = null;
+
+        //Query to fetch the item by ID
+        Cursor cursor = db.query(
+                TABLE_ITEMS,  //Table name
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_QUANTITY, COLUMN_VALUE, COLUMN_CATEGORY},  //Columns to fetch
+                COLUMN_ID + " = ?",  //WHERE clause
+                new String[]{String.valueOf(id)},  //WHERE arguments
+                null,  //GROUP BY
+                null,  //HAVING
+                null   //ORDER BY
+        );
+
+        //Check if a result is returned
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                //Get the column indices
+                int idIndex = cursor.getColumnIndex(COLUMN_ID);
+                int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
+                int quantityIndex = cursor.getColumnIndex(COLUMN_QUANTITY);
+                int valueIndex = cursor.getColumnIndex(COLUMN_VALUE);
+                int categoryIndex = cursor.getColumnIndex(COLUMN_CATEGORY);
+
+                //Ensure indices are valid and retrieve data
+                if (idIndex != -1 && nameIndex != -1 && quantityIndex != -1 && valueIndex != -1 && categoryIndex != -1) {
+                    int itemId = cursor.getInt(idIndex);
+                    String name = cursor.getString(nameIndex);
+                    int quantity = cursor.getInt(quantityIndex);
+                    double price = cursor.getDouble(valueIndex);
+                    String category = cursor.getString(categoryIndex);
+
+                    //Create the Item object
+                    item = new Item(itemId, name, quantity, price, category);
+                }
+            }
+            cursor.close();
+        }
+
+        db.close();
+        return item;  //Return the Item object (null if not found)
     }
 
     public List<Item> getAllItems() {
@@ -161,7 +205,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper{
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 int quantityIndex = cursor.getColumnIndex(COLUMN_QUANTITY);
-                if (quantityIndex != -1) { // Check if the index is valid
+                if (quantityIndex != -1) { //Check if the index is valid
                     oldQuantity = cursor.getInt(quantityIndex);
                 } else {
                     Log.e("ItemDatabaseHelper", "Column not found: " + COLUMN_QUANTITY);
