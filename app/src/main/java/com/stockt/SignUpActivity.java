@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private TextView editText;
+    private TextView editText, warningText;
     private EditText nameText;
     private EditText emailText;
     private EditText passwordText;
@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Initialize elements of xml
         editText = findViewById(R.id.editTextText);
+        warningText = findViewById(R.id.warningText);
         nameText = findViewById(R.id.nameText);
         emailText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
@@ -55,17 +56,25 @@ public class SignUpActivity extends AppCompatActivity {
         String phoneNumber = phoneNumberText.getText().toString();
 
         if (!fullName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !phoneNumber.isEmpty()) { //Checks forms are filled
-            if (password.equals(checkPass)) { //Checks passwords match
+            if (password.equals(checkPass) && isValidPassword(password)) { //Checks passwords match
                 userDatabaseHelper.addUser(fullName, email, password, phoneNumber);
                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
                 finish(); //Close sign-up activity after registration
             } else {
                 //Toast for notifying user of fault
+                warningText.setVisibility(View.VISIBLE); //Makes the warning visible
                 Toast.makeText(this, "Please make sure the passwords match", Toast.LENGTH_SHORT).show();
             }
         } else {
             //Toast for notifying user of fault
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8 &&
+                password.matches(".*[A-Z].*") && //Uppercase
+                password.matches(".*[a-z].*") && //Lowercase
+                password.matches(".*\\d.*");     //Digit
     }
 }

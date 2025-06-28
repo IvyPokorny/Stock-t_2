@@ -5,6 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.SecretKey;
+import android.util.Base64;
+import android.util.Log;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
+import java.security.Security;
+
 public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "users.db";
@@ -44,10 +60,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_FULL_NAME, fullName);
         values.put(COLUMN_EMAIL, email);
-        values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_PASSWORD, hashPassword(password));
         values.put(COLUMN_PHONE_NUMBER, phoneNumber);
         db.insert(TABLE_USERS, null, values);
         db.close();
+        Log.i("UserDatabaseHelper", "addUser: Hashed password=" + hashPassword(password));
     }
 
     public boolean checkUser(String email, String password) {
@@ -56,11 +73,60 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_USERS,
                 new String[]{COLUMN_ID},
                 COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=?",
-                new String[]{email, password},
+                new String[]{email, hashPassword(password)},
                 null, null, null);
 
         boolean exists = cursor.getCount() > 0;
         cursor.close();
+        Log.i("UserDatabaseHelper", "checkUser: Hashed password=" + hashPassword(password));
         return exists;
     }
+
+
+    public static String hashPassword(String password) {
+        String saltText = "ThisIsSaltText";
+        byte[] salt = saltText.getBytes(StandardCharsets.UTF_8);
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(salt);
+            byte[] hashedBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.encodeToString(hashedBytes, Base64.DEFAULT);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null; // Handle error appropriately
+        }
+    }
+
+//    public String encryptPassword(String password) {
+//        listProviders();
+//        try {
+//            //Generate a secret key for AES
+//            KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+//            keyGen.init(128); //I can also choose 192 or 256 bits
+//            SecretKey secretKey = keyGen.generateKey();
+//
+//            //Initialize the cipher for AES
+//            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+//            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+//
+//            //Encrypt the password
+//            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));
+//
+//            //Return the encrypted password as a Base64-encoded string
+//            return Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+
+//    public void listProviders() {
+//        for (Provider provider : Security.getProviders()) {
+//            Log.i("UserDatabaseHelper", "listProviders: " + provider.getName() + ": " + provider.getVersion());
+//            for (Provider.Service service : provider.getServices()) {
+//                Log.i("UserDatabaseHelper", "listService: " + service.getType() + " " + service.getAlgorithm());
+//            }
+//        }
+//    }
 }

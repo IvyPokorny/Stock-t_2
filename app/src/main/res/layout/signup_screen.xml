@@ -61,6 +61,15 @@
         android:layout_width="match_parent"
         android:layout_height="62dp">
 
+        <TextView
+            android:id="@+id/warningText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            android:text="Password must be at least 8 characters, one uppercase, one lowercase, one digit" />
+
     </FrameLayout>
 
     <Button
